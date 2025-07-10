@@ -1,0 +1,575 @@
+/* Basic Reset & Typography */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-padding-top: 80px; /* Adjust this value to the height of your fixed header */
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    line-height: 1.6;
+    color: var(--text-on-dark);
+    background-color: var(--dominant-pink);
+    overflow-x: hidden; /* Prevent horizontal scroll caused by potential off-screen elements */
+}
+
+/* Add this class to body when mobile menu is open via JavaScript */
+body.no-scroll {
+    overflow: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+    margin-bottom: 0.8em;
+    font-weight: 700;
+}
+
+h1 { font-size: 2.8em; }
+h2 { font-size: 2.2em; }
+h3 { font-size: 1.8em; }
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Colors Variables */
+:root {
+    --dominant-pink: #800040; /* The dark pink/maroon */
+    --light-pink: #FAE5EB; /* A light pink color */
+    --accent-gold: #FFD700; /* Brighter gold for accents */
+    --accent-white: #FFFFFF; /* Pure white, for very stark contrast if needed */
+
+    /* Text Colors based on background */
+    --text-on-dominant-pink: var(--light-pink); /* Light pink text on dominant pink background */
+    --text-on-light-pink: #4A0E4E; /* Dark plum-like pink text on light pink background */
+
+    /* Heading Colors based on background */
+    --heading-on-dominant-pink: var(--accent-gold); /* Gold headings on dominant pink */
+    --heading-on-light-pink: #4A0E4E; /* Dark plum-like pink headings on light pink */
+
+    /* Card Backgrounds */
+    --card-bg-on-dominant-pink: var(--light-pink); /* Light pink cards when on dominant pink section */
+    --card-bg-on-light-pink: var(--dominant-pink); /* Dominant pink cards when on light pink section */
+
+    /* Button Colors */
+    --button-gold: #FFD700;
+    --button-gold-hover: #E6C200;
+}
+
+/* Header & Navigation */
+header {
+    background-color: var(--dominant-pink);
+    padding: 15px 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    color: var(--text-on-dominant-pink);
+    position: fixed; /* Make header fixed */
+    width: 100%; /* Ensure it spans full width */
+    top: 0; /* Position at the top */
+    left: 0;
+    z-index: 1000; /* Ensure it stays on top of other content */
+    height: 80px; /* Explicitly set a height for header */
+    display: flex; /* Ensure content inside header is centered */
+    align-items: center;
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%; /* Ensure container takes full width within header */
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo img {
+    height: 50px;
+}
+
+.logo h1 {
+    font-size: 1.8em;
+    color: var(--accent-gold);
+    margin-bottom: 0;
+    font-weight: 700;
+}
+
+.header-contact {
+    font-size: 0.9em;
+    margin-left: auto;
+    margin-right: 30px;
+    color: var(--text-on-dominant-pink);
+}
+
+nav .nav-links {
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+nav .nav-links li {
+    margin-left: 25px;
+}
+
+nav .nav-links a {
+    text-decoration: none;
+    color: var(--text-on-dominant-pink);
+    font-weight: 500;
+    transition: color 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+nav .nav-links a i {
+    color: var(--accent-gold);
+    font-size: 1.1em;
+}
+
+nav .nav-links a:hover {
+    color: var(--accent-gold);
+}
+
+.hamburger-menu {
+    display: none; /* Hidden on desktop, shown on mobile */
+    background: none;
+    border: none;
+    font-size: 2em;
+    color: var(--text-on-dominant-pink);
+    cursor: pointer;
+    z-index: 1001; /* Ensure hamburger is above nav-links when active */
+}
+
+/* Hero Section (Home Section with Background Image) */
+.hero {
+    /* Background Image Styling */
+    background-image: url('images/Rasta Family.jpg'); /* <<<< --- REPLACE THIS WITH YOUR IMAGE PATH --- >>>> */
+    background-size: cover; /* Ensures the image covers the entire section */
+    background-position: center; /* Centers the image within the section */
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+    background-attachment: scroll; /* Image scrolls with the content (change to 'fixed' for parallax) */
+
+    background-color: var(--dominant-pink); /* Fallback color if image fails to load */
+
+    color: var(--text-on-dominant-pink); /* Light pink text */
+    text-align: center;
+    padding: 100px 20px;
+    padding-top: 180px; /* Adjust padding-top to push content down from fixed header */
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 500px;
+}
+
+/* Overlay for Hero Section to make text readable on image */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(128, 0, 64, 0.7); /* Semi-transparent dominant pink overlay */
+    z-index: 0; /* Ensures overlay is between background image and content */
+}
+
+.hero-background-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Playfair Display', serif;
+    font-size: 8em;
+    color: rgba(255, 255, 255, 0.08); /* Very faint white */
+    white-space: nowrap;
+    user-select: none;
+    pointer-events: none;
+    z-index: 1; /* Above the overlay */
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2; /* Above background text and overlay */
+    background-color: rgba(128, 0, 64, 0.8); /* Slightly darker, semi-transparent overlay for content box */
+    padding: 60px 40px;
+    border-radius: 15px;
+    max-width: 800px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.hero h2 {
+    font-size: 3.2em;
+    margin-bottom: 20px;
+    color: var(--accent-white); /* White for main hero heading */
+    line-height: 1.2;
+}
+
+.hero h2 span {
+    color: var(--accent-gold);
+    font-weight: 700;
+}
+
+.hero p {
+    font-size: 1.15em;
+    margin-bottom: 35px;
+    line-height: 1.5;
+    color: var(--text-on-dominant-pink); /* Light pink text */
+}
+
+.btn {
+    display: inline-block;
+    background-color: var(--button-gold);
+    color: var(--dominant-pink); /* Button text is dominant pink */
+    padding: 15px 35px;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: bold;
+    font-size: 1.05em;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.btn:hover {
+    background-color: var(--button-gold-hover);
+    transform: translateY(-2px);
+}
+
+/* General Section Styling */
+section {
+    padding: 80px 0;
+    text-align: center;
+}
+
+/* Alternating Section Colors */
+
+/* Section 1: About Us (Light Pink Background) */
+.about-us {
+    background-color: var(--light-pink);
+    color: var(--text-on-light-pink);
+}
+.about-us h2 {
+    color: var(--heading-on-light-pink);
+}
+.about-us p {
+    max-width: 800px;
+    margin: 20px auto 0;
+    font-size: 1.1em;
+    line-height: 1.8;
+}
+
+/* Section 2: Services (Dominant Pink Background) */
+.services {
+    background-color: var(--dominant-pink);
+    color: var(--text-on-dominant-pink);
+}
+.services h2 {
+    color: var(--heading-on-dominant-pink);
+}
+
+.service-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.service-item {
+    background-color: var(--card-bg-on-dominant-pink);
+    padding: 35px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+    color: var(--text-on-light-pink);
+}
+
+.service-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+.service-item h3 {
+    color: var(--heading-on-light-pink);
+    margin-bottom: 15px;
+}
+
+.service-item p {
+    font-size: 0.95em;
+}
+
+.service-item i {
+    font-size: 3em;
+    color: var(--heading-on-light-pink);
+    margin-bottom: 20px;
+}
+
+/* Section 3: Gallery (Light Pink Background) */
+.gallery {
+    background-color: var(--light-pink);
+    color: var(--text-on-light-pink);
+}
+.gallery h2 {
+    color: var(--heading-on-light-pink);
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    margin-top: 40px;
+}
+
+.gallery-grid img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease;
+}
+
+.gallery-grid img:hover {
+    transform: scale(1.03);
+}
+
+/* Section 4: Booking / Contact (Dominant Pink Background) */
+.booking-contact {
+    background-color: var(--dominant-pink);
+    color: var(--text-on-dominant-pink);
+}
+.booking-contact h2 {
+    color: var(--heading-on-dominant-pink);
+}
+
+.contact-form {
+    max-width: 600px;
+    margin: 40px auto 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: var(--card-bg-on-dominant-pink);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.contact-form input,
+.contact-form textarea {
+    padding: 15px;
+    border: 1px solid rgba(128, 0, 64, 0.2);
+    border-radius: 5px;
+    font-size: 1em;
+    width: 100%;
+    background-color: var(--accent-white);
+    color: var(--text-on-light-pink);
+}
+
+.contact-form textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.contact-form .btn {
+    align-self: center;
+    width: auto;
+}
+
+.contact-info {
+    margin-top: 30px;
+    font-size: 1.1em;
+    color: var(--text-on-dominant-pink);
+}
+
+.contact-info p {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contact-info i {
+    color: var(--accent-gold);
+    margin-right: 10px;
+}
+
+/* Section 5: Testimonials (Light Pink Background) */
+.testimonials {
+    background-color: var(--light-pink);
+    color: var(--text-on-light-pink);
+}
+.testimonials h2 {
+    color: var(--heading-on-light-pink);
+}
+
+.testimonial-slider {
+    display: flex;
+    flex-wrap: wrap; /* Allow items to wrap to next line */
+    justify-content: center; /* Center items when they wrap */
+    gap: 20px;
+    padding-bottom: 20px;
+    margin-top: 40px;
+    overflow-x: hidden; /* Prevent horizontal scroll when stacking */
+}
+
+.testimonial-item {
+    flex: 0 0 calc(50% - 10px); /* Two columns on larger screens */
+    max-width: 450px; /* Max width to prevent items from getting too wide */
+    background-color: var(--card-bg-on-light-pink);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    text-align: left;
+    color: var(--text-on-dominant-pink);
+}
+
+.testimonial-item p {
+    font-style: italic;
+    margin-bottom: 15px;
+    color: var(--text-on-dominant-pink);
+}
+
+.testimonial-item span {
+    font-weight: bold;
+    color: var(--accent-gold);
+}
+
+/* Footer (Dominant Pink) */
+footer {
+    background-color: var(--dominant-pink);
+    color: var(--text-on-dominant-pink);
+    padding: 40px 0;
+    text-align: center;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.footer-logo img {
+    height: 40px;
+    margin-bottom: 10px;
+}
+
+.social-links a {
+    color: var(--accent-gold);
+    font-size: 1.8em;
+    margin: 0 15px;
+    transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+    color: var(--accent-white);
+}
+
+/* Responsive Design (Media Queries) */
+@media (max-width: 768px) {
+    .logo h1 {
+        font-size: 1.5em;
+    }
+
+    .header-contact {
+        display: none;
+    }
+
+    /* HEADER FIX: Mobile Navigation */
+    nav .nav-links {
+        display: none; /* Hidden by default */
+        flex-direction: column;
+        width: 100%;
+        background-color: var(--dominant-pink);
+        position: fixed; /* Use fixed for full-screen overlay */
+        top: 80px; /* Below the fixed header */
+        left: 0;
+        height: calc(100vh - 80px); /* Take full height below header */
+        overflow-y: auto; /* Allow scrolling if menu content is tall */
+        padding: 20px 0;
+        border-top: 1px solid rgba(255,255,255,0.2);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* Add shadow to overlay */
+        transition: transform 0.3s ease-in-out; /* Smooth transition */
+        transform: translateX(100%); /* Start off-screen to the right */
+    }
+
+    nav .nav-links.active {
+        display: flex; /* Show when active */
+        transform: translateX(0); /* Slide into view */
+    }
+
+    nav .nav-links li {
+        margin: 15px 0; /* More vertical space */
+        text-align: center;
+    }
+
+    nav .nav-links a {
+        font-size: 1.2em; /* Larger font size for mobile links */
+        padding: 10px 0;
+    }
+
+    .hamburger-menu {
+        display: block; /* Show hamburger icon on mobile */
+    }
+
+    .hero {
+        padding-top: 150px; /* Adjust for smaller screens and fixed header */
+    }
+
+    .hero h2 {
+        font-size: 2.5em;
+    }
+
+    .hero p {
+        font-size: 1.1em;
+    }
+
+    .hero-content {
+        padding: 40px 20px;
+    }
+
+    .hero-background-text {
+        font-size: 4em;
+    }
+
+    .service-grid,
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* TESTIMONIALS FIX: Stacking on smaller screens */
+    .testimonial-item {
+        flex: 0 0 90%; /* One column on smaller screens, with some margin */
+    }
+}
+
+@media (max-width: 480px) {
+    h1 { font-size: 2em; }
+    h2 { font-size: 1.8em; }
+    h3 { font-size: 1.5em; }
+
+    .hero {
+        padding: 80px 15px;
+        padding-top: 130px; /* Further adjust for very small screens */
+    }
+
+    .logo img {
+        height: 40px;
+    }
+
+    .footer-content {
+        flex-direction: column;
+    }
+    .testimonial-item {
+        flex: 0 0 100%; /* Full width on very small screens */
+    }
+}
