@@ -37,13 +37,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Lazy Loading for Images (for faster loading times)
-    const lazyImages = document.querySelectorAll('img'); // Select all images initially
+    const lazyImages = document.querySelectorAll('img[data-src]'); // Select images with data-src attribute
 
     const imageObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const img = entry.target;
-                const src = img.getAttribute('data-src'); // Assuming you'd add data-src attribute to images
+                const src = img.getAttribute('data-src');
                 if (src) {
                     img.src = src;
                     img.classList.add('loaded'); // Add a class for loaded images if needed
@@ -67,14 +67,62 @@ document.addEventListener('DOMContentLoaded', () => {
     // Form Submission (Basic - you'd need a backend service for actual email sending)
     const contactForm = document.querySelector('.contact-form');
     if (contactForm) {
+        // We'll modify this to work with the WhatsApp button instead of a direct form submit
+        // Keeping this for now, but note it might conflict if both submit to backend AND WhatsApp are intended for the same form.
+        // For the WhatsApp feature, we are specifically targeting the button click.
         contactForm.addEventListener('submit', function(e) {
-            e.preventDefault(); // Prevent default form submission
+             e.preventDefault(); // Prevent default form submission
 
-            // In a real application, you'd send this data to a server
-            alert('Thank you for your message! We will get back to you soon.');
-            contactForm.reset(); // Clear the form
+            // This alert will still show if you have a submit button that isn't the WhatsApp button
+            // If the WhatsApp button is the *only* submit method, this listener might not be needed.
+            // alert('Thank you for your message! We will get back to you soon.');
+            // contactForm.reset(); // Clear the form
         });
     }
+
+    // --- WhatsApp Integration Start ---
+    const whatsappButton = document.getElementById('whatsappContactButton');
+
+    // Check if the button exists on the page before adding the event listener
+    if (whatsappButton) {
+        whatsappButton.addEventListener('click', function() {
+            // Get values from the form fields
+            const email = document.getElementById('userEmail').value;
+            const name = document.getElementById('userName').value;
+            const phone = document.getElementById('userPhone').value;
+            const hairNeeds = document.getElementById('hairNeeds').value;
+
+            // Your WhatsApp phone number (replace with your actual number)
+            // Ensure it's in international format without '+' or '00'.
+            // Example for Kenya: 2547XXXXXXXX
+            const yourWhatsappNumber = '254741743685'; // This is your Black Rose Salon number
+
+            // Construct the message with all the collected information
+            let message = `Hello Black Rose Salon, I would like to book an appointment.\n\n`;
+            message += `Here are my details and hair needs:\n`;
+            message += `Name: ${name || 'Not provided'}\n`; // Fallback if field is empty
+            message += `Email: ${email || 'Not provided'}\n`;
+            message += `Phone: ${phone || 'Not provided'}\n`;
+            message += `Hair Needs/Service: ${hairNeeds || 'Not specified'}\n\n`;
+            message += `Please get back to me as soon as possible.`;
+
+            // URL-encode the message to ensure it's properly formatted for the URL
+            const encodedMessage = encodeURIComponent(message);
+
+            // Create the WhatsApp URL
+            const whatsappURL = `https://wa.me/${yourWhatsappNumber}?text=${encodedMessage}`;
+
+            // Open WhatsApp in a new tab/window
+            window.open(whatsappURL, '_blank');
+
+            // Optional: Clear the form after sending the WhatsApp message
+            if (contactForm) {
+                contactForm.reset();
+            }
+        });
+    }
+    // --- WhatsApp Integration End ---
+
 
     // Instagram Feed (Conceptual - requires Instagram Basic Display API or a third-party service)
     // Embedding an Instagram feed securely and reliably often requires using their API
@@ -82,16 +130,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // Direct embedding with client-side JavaScript is difficult due to API limitations and CORS policies.
 
     // function loadInstagramFeed() {
-    //     // This would involve making an API call to Instagram's Basic Display API
-    //     // after a user has authorized your app. This is complex and requires
-    //     // server-side components for token handling.
+    //      This would involve making an API call to Instagram's Basic Display API
+    //      after a user has authorized your app. This is complex and requires
+    //      server-side components for token handling.
     //     console.log("Instagram feed loading functionality goes here (requires API integration).");
-    //     // Placeholder for what the structure might look like
+    //      Placeholder for what the structure might look like
     //     const instagramContainer = document.createElement('div');
     //     instagramContainer.innerHTML = `<p style="text-align: center; color: #555;">Follow us on Instagram for live updates!</p>
-    //                                     <a href="https://instagram.com/blackrosesalon" target="_blank" style="display: block; text-align: center;">@blackrosesalon</a>`;
-    //     // You'd append this to a specific section in your HTML
-    //     // document.querySelector('#instagram-feed-section').appendChild(instagramContainer);
+    //                              <a href="https://instagram.com/blackrosesalon" target="_blank" style="display: block; text-align: center;">@blackrosesalon</a>`;
+    //      You'd append this to a specific section in your HTML
+    //      document.querySelector('#instagram-feed-section').appendChild(instagramContainer);
     // }
     // loadInstagramFeed(); // Call this function if you have the API setup
 });

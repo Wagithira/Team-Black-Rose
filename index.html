@@ -157,14 +157,16 @@
             <h2>Book Your Appointment</h2>
             <p>Ready for a stunning new look? Book your consultation or service with us today!</p>
             <form class="contact-form">
-                <input type="text" placeholder="Your Name" required>
-                <input type="email" placeholder="Your Email" required>
-                <input type="tel" placeholder="Your Phone Number">
-                <textarea placeholder="Tell us about your hair needs and preferred service"></textarea>
-                <a href="https://wa.me/254741743685" target="_blank" class="btn">
-  <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp" style="width: 20px; vertical-align: middle; margin-right: 8px;">
-  Contact us on WhatsApp
-</a>
+    <input type="email" id="userEmail" placeholder="Your Email" required>
+    <input type="text" id="userName" placeholder="Your Name">
+    <input type="tel" id="userPhone" placeholder="Your Phone Number">
+    <textarea id="hairNeeds" placeholder="Tell us about your hair needs and preferred service"></textarea>
+
+    <button type="button" id="whatsappContactButton" class="btn">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp" style="width: 20px; vertical-align: middle; margin-right: 8px;">
+        Contact us on WhatsApp
+    </button>
+</form>
 
             </form>
             <div class="contact-info">
@@ -179,7 +181,7 @@
             <div class="testimonial-slider">
                 <div class="testimonial-item">
                     <p>"Black Rosé Dreadlocks transformed my hair! Kuanzia hapa nimefurahia kila siku. Highly recommend!!"</p>
-                    <span>- Pauline Mbithe a.k.a "Poly"</span>
+                    <span>- Pauline Mbithe A.K.A "Poly"</span>
                 </div>
                 <div class="testimonial-item">
                     <p>"Finally found a salon that truly understands dreadlocks. Nilianza hapa na sasa dreads zangu ziko na uzuri wa kipekee. Styling options zao ni moto!"</p>
